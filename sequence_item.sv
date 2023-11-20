@@ -15,12 +15,14 @@ class trans_bushandler #(parameter ROWS =4, parameter COLUMNS = 4, parameter pkg
     int drvrs=16;
     reg [pkg_size-1:0] pkg;
     int latencia;
-    reg [pkg_size-1:0] pkg;
+    
     function update_pkg;
         this.nxt_jump = 8'b00000000;
         this.pkg = {this.nxt_jump, this.target_fila, this.target_columna, this.modo, this.dispositivo_tx, this.dispositivo_rx, this.dato};
     endfunction
-    
+    constraint tiempo_recibido_constraint {
+      tiempo_recibido >= tiempo_envio;
+  }
    
     function update_rows_columns(int id);
 

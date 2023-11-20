@@ -1,5 +1,6 @@
 class trans_bushandler_sequencer extends uvm_sequencer #(trans_bushandler);
-
+    `uvm_object_utils(trans_bushandler_sequencer);
+    
     // Constructor
     function new(string name = "trans_bushandler_sequencer", uvm_component parent = null);
         super.new(name, parent);
