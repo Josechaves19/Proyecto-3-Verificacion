@@ -106,5 +106,5 @@ function void calc_latencia();
     
     function new(string name = "trans_bushandler");
         super.new(name);
-    endfunction //new()
+    endfunction 
 endclass  
