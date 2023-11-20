@@ -106,7 +106,7 @@ function void calc_latencia();
     }
      
     
-    function new(string name = "trans_bushandler");
+    function new(string name = "trans_bushandler", int pkg_size=40);
         super.new(name);
     endfunction 
 endclass  
