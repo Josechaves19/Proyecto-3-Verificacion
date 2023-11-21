@@ -1,5 +1,3 @@
-`include "uvm_macros.svh"
-import uvm_pkg::*; 
 
 class trans_bushandler #(parameter ROWS =4, parameter COLUMNS = 4, parameter pkg_size =40) extends uvm_sequence_item;
    
@@ -130,19 +128,19 @@ function void calc_latencia();
 endfunction
 endclass  
 
-module trans_bushandler_tb;
-    trans_bushandler trans;
+//module trans_bushandler_tb;
+  //  trans_bushandler trans;
 
-    initial begin
-        for (int i=0 ; i<10; i++) begin 
-        trans = trans_bushandler::type_id::create();
-        trans.print_transaccion; 
+    //initial begin
+      //  for (int i=0 ; i<10; i++) begin 
+       // trans = trans_bushandler::type_id::create();
+        //trans.print_transaccion; 
 
-        trans.randomize();
-        trans.update_rows_columns(trans.dispositivo_rx);
-        trans.update_pkg;
-        trans.print_transaccion; 
-        trans.print();
-    end
-    end
-endmodule
+       // trans.randomize();
+       // trans.update_rows_columns(trans.dispositivo_rx);
+       // trans.update_pkg;
+       // trans.print_transaccion; 
+       // trans.print();
+//    end
+//    end
+//endmodule

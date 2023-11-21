@@ -1,12 +1,7 @@
-`include "uvm_macros.svh"
-import uvm_pkg::*; 
-`include "sequence_item.sv"
-`include "sequencer.sv"
 
 class trans_sequence extends uvm_sequence;
     int ID_pkg;
     `uvm_object_utils(trans_sequence)
-    `uvm_declare_p_sequencer(trans_bushandler_sequencer) 
     function new(string name="trans_sequence");
         super.new(name);
     endfunction
@@ -16,8 +11,7 @@ class trans_sequence extends uvm_sequence;
     virtual task body(); 
         
         for (int i = 0 ; i <num ; i++) begin
-            trans_bushandler trans= trans_bushandler::type_id::create("trans");
-                trans=trans_bushandler::type_id::create("req"); //Creo el item
+                start_item(trans); 
                 trans.randomize();
                 ID_pkg=trans.dispositivo_rx;
                 trans.update_rows_columns(ID_pkg);
@@ -32,16 +26,16 @@ class trans_sequence extends uvm_sequence;
 endclass
 
 
-module tb;
+//module tb;
 
-    trans_sequence secuencia;
-    initial begin
-        
-         secuencia=new();
-        secuencia.randomize();
-        secuencia.body();
-    end
+  //  trans_sequence secuencia;
+   // initial begin
+    //    
+     //    secuencia=new();
+      //  secuencia.randomize();
+       // secuencia.body();
+//    end
 
- endmodule
+// endmodule
 
 
