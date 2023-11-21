@@ -25,10 +25,10 @@ class monitor extends uvm_monitor;
       begin
         `uvm_warning("Monitor inicializado"), get_type_name())
         forever begin
-            item s_item= item::type_id::create("s_item");
+            item trans= item::type_id::create("trans");
             vif.pop[id_mntr]=0;
             if (vif.pndng[id_mntr]==1) begin
-                  s_item.out = vif.data_out[id_mntr];
+                  trans.out = vif.data_out[id_mntr];
                   $display("El monitor %0d recibe el mensaje: %b en modo [%d] ", id_mntr, vif.data_out[id_mntr], vif.data_out[id_mntr][pkg_size-17]);
                   vif.pop[id_mntr]=1;
             end
@@ -38,7 +38,7 @@ class monitor extends uvm_monitor;
             end
             count++;
             @(posedge vif.clk);
-            mntr_analysis_port.write(s_item);
+            mntr_analysis_port.write(trans);
         end
      end
    endtask
