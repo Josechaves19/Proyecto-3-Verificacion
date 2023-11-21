@@ -15,11 +15,11 @@ class trans_sequence extends uvm_sequence;
                 ID_pkg=trans.dispositivo_rx;
                 trans.update_rows_columns(ID_pkg);
                 trans.update_pkg; 
-                `uvm_info($sformatf("Generando transaccion"), UVM_LOW)
+                `uvm_info("SEQ", $sformatf("Generando transaccion"), UVM_LOW)
                 trans.print();
                 finish_item(trans);
         end
         
-        `uvm_info($sformatf("Terminando de generar %0d transacciones"), num), UVM_LOW)
+        `uvm_info("SEQ",$sformatf("Terminando de generar %0d transacciones"), num), UVM_LOW)
     endtask 
 endclass
