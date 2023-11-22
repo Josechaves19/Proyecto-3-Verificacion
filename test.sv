@@ -19,7 +19,7 @@ class test_1 extends uvm_test;
 
         if(!uvm_config_db#(virtual bus_mesh_if)::get(this,"","vif",vif))
             `uvm_fatal("Test","Could not get vif")
-            uvm_config_db#(virtual bus_mesh_if)::set(this,"amb_inst.agent.*","bus_mesh_if",vif);
+            uvm_config_db#(virtual bus_mesh_if)::set(this,"ambiente_test.agente_ambiente.*","vif",vif);
         secuencia = trans_sequence::type_id::create("secuencia");
         secuencia.randomize() ;
     endfunction

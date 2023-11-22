@@ -37,7 +37,7 @@ class scoreboard extends `uvm_scoreboard;
 
 
   uvm_analysis_imp #(trans_bushandler,scoreboard) trans_driver_export;
- 
+  
 
   function new(string name = "scoreboard", `uvm_component parent = null);
     super.new(name,parent);
@@ -626,7 +626,7 @@ end
   `uvm_info(get_type_name(), $sformatf("Tiempo monitor  %g", trans_monitor.tiempo_recibido), UVM_LOW) 
    
 end
-`uvm_info(get_type_name(), "Datod unicos", UVM_LOW) 
+`uvm_info(get_type_name(), "Datos unicos", UVM_LOW) 
 for (int i = 0; i < lista_unicos.size(); i++) begin
   for (int j=0; j < monitor_lista.size(); j++) begin
     if (lista_unicos[i]==monitor_lista[j].pkg[pkg_size-9:0]) begin

@@ -12,13 +12,14 @@ class trans_sequence extends uvm_sequence;
         
         for (int i = 0 ; i <num ; i++) begin
                 trans_bushandler trans;
+                trans=trans_bushandler::type_id::create("trans"); 
                 start_item(trans); 
                 trans.randomize();
                 ID_pkg=trans.dispositivo_rx;
                 trans.update_rows_columns(ID_pkg);
                 trans.update_pkg; 
-                `uvm_info("SEQ", $sformatf("Generando transaccion"), UVM_LOW)
-                trans.print();
+                `uvm_info("SEQ", $sformatf("Generando transaccion %0b", trans.pkg), UVM_LOW)
+                
                 finish_item(trans);
         end
         

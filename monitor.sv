@@ -14,7 +14,7 @@ class monitor extends uvm_monitor;
   
    virtual function void build_phase(uvm_phase  phase);
      super.build_phase(phase);
-     if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","bus_mesh_if",vif))
+     if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif))
      `uvm_fatal("Monitor","No pudo conectarse a vif")
      mntr_analysis_port = new("mntr_analysis_port",this);
    endfunction

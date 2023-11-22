@@ -18,14 +18,15 @@ class driver extends uvm_driver #(trans_bushandler);
 virtual function void build_phase(uvm_phase phase);
 super.build_phase(phase);
 port_driver=new("analysis_port", this); 
-if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif)) 
-            `uvm_fatal("Interfaz virtual", "No se pudo conectar vif")
+        if(!uvm_config_db#(virtual bus_mesh_if)::get(this,"","vif",vif))
+            `uvm_fatal("Test","Could not get vif")
+            uvm_config_db#(virtual bus_mesh_if)::set(this,"amb_inst.agent.*","vif",vif);
     endfunction
 
   virtual task run_phase(uvm_phase phase);
         super.run_phase(phase);
         vif.reset = 1;
-
+        `uvm_info("Driver", $sformatf("Inicializando Driver"), UVM_LOW)
         vif.data_out_i_in[id_drvr] = 0;
         vif.pndng_i_in[id_drvr] = 0; 
 
@@ -38,6 +39,8 @@ if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif))
           trans_bushandler trans;//items del sequencer i guess
           trans_bushandler trans_scoreboard; 
           seq_item_port.get_next_item(trans);
+          `uvm_info("Driver", $sformatf("Transaccion recibida"), UVM_LOW)
+
           trans_scoreboard=trans_bushandler::type_id::create("trans_scoreboard"); 
           trans_scoreboard.copy(trans);
           port_driver.write(trans_scoreboard); 
@@ -45,16 +48,17 @@ if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif))
             vif.data_out_i_in[id_drvr] = 0;
             vif.pndng_i_in[id_drvr] = 0;
           @(posedge vif.clk);
-          @(posedge vif.clk);
-          vif.data_out_i_in[id_drvr] = {trans.pkg};
-          vif.pndng_i_in[id_drvr] = 1;
+            vif.data_out_i_in[id_drvr] = {trans.pkg};
+            vif.pndng_i_in[id_drvr] = 1;
           @(posedge vif.clk);
             wait (vif.popin[id_drvr]);
             vif.pndng_i_in[id_drvr] = 0;
+            
+           `uvm_info("Driver", $sformatf("Envia Transaccion %0b", trans.pkg), UVM_LOW) 
             seq_item_port.item_done();
-          //`uvm_info("DRV", $sformatf("Transaccion %s", item, print_transaccion()), UVM_HIGH);
-          $display("El driver #%0d envia el mensaje: %b en modo [%d] ", id_drvr, vif.data_out_i_in[id_drvr], trans.modo );        end   
-    endtask 
+        end
+            //`uvm_info("DRV", $sformatf("Transaccion %s", item, print_transaccion()), UVM_HIGH);
+      endtask 
 
 endclass
 

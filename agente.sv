@@ -21,7 +21,7 @@ class agente extends uvm_agent;
             agente_driver[contador]=driver::type_id::create($sformatf("agente_driver_%0d", contador),this); 
             agente_monitor[contador]=monitor::type_id::create($sformatf("agente_monitor_%0d", contador),this); 
             agente_sequencer[contador]=trans_bushandler_sequencer::type_id::create($sformatf("agente_sequencer_%0d", contador), this);
-            agente_driver[contador].id=contador;
+            agente_driver[contador].id_drvr=contador;
             agente_monitor[contador].id_mntr=contador; 
        end //Instancio los drivers, secuenciadores y monitores, ademas le doy a los drivers y monitores su id 
 
