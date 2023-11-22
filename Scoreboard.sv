@@ -498,6 +498,73 @@ endtask
           disable Tiempo_checker; 
       end
   end
+  //fucnion que me dice la columna o fila del antiguo checker
+  case (id)
+
+  4'b0000: begin
+      this.terminal_columna = 1;
+      this.terminal_fila = 0;
+  end
+  4'b0001: begin
+      this.terminal_columna = 2;
+      this.terminal_fila = 0;
+  end
+  4'b0010: begin
+      this.terminal_columna = 3;
+      this.terminal_fila = 0;
+  end
+  4'b0011: begin
+      this.terminal_columna = 4;
+      this.terminal_fila = 0;
+  end
+  4'b0100: begin
+      this.terminal_columna = 0;
+      this.terminal_fila = 1;
+  end
+  4'b0101: begin
+      this.terminal_columna = 0;
+      this.terminal_fila = 2;
+  end
+  4'b0110: begin
+     this.terminal_columna = 0;
+      this.terminal_fila = 3;
+  end
+  4'b0111: begin
+      this.terminal_columna = 0;
+      this.terminal_fila = 4;
+  end
+  4'b1000: begin
+      this.terminal_columna = 1;
+      this.terminal_fila = 5;
+  end
+  4'b1001: begin
+      this.terminal_columna = 2;
+      this.terminal_fila = 5;
+  end
+  4'b1010: begin
+      this.terminal_columna = 3;
+      this.terminal_fila = 5;
+  end
+  4'b1011: begin
+      this.terminal_columna = 4;
+      this.terminal_fila = 5;
+  end
+  4'b1100: begin
+      this.terminal_columna = 5;
+      this.terminal_fila = 1;
+  end
+  4'b1101: begin
+      this.terminal_columna = 5;
+      this.terminal_fila = 2;
+  end
+  4'b1110: begin
+      this.terminal_columna = 5;
+      this.terminal_fila = 3;
+  end
+  4'b1111: begin
+      this.terminal_columna = 5;
+      this.terminal_fila = 4;
+  end
     //funcion mapeo rutas antiguo checker
    while(mapeo_ruta_mbx.num()!=0) begin
          trans_mapeo=new();
