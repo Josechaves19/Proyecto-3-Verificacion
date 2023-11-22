@@ -17,21 +17,18 @@ class test_1 extends uvm_test;
         super.build_phase(phase);
         ambiente_test = ambiente::type_id::create("ambiente_test",this);
 
-        //Verifica si se conecto correctamente al interface
-        if(!uvm_config_db#(virtual bus_mesh_if)::get(this,"","bus_mesh_if",vif))
+        if(!uvm_config_db#(virtual bus_mesh_if)::get(this,"","vif",vif))
             `uvm_fatal("Test","Could not get vif")
             uvm_config_db#(virtual bus_mesh_if)::set(this,"amb_inst.agent.*","bus_mesh_if",vif);
-        //Genera la secuencia 
-        seq = trans_sequence::type_id::create("seq");
-        seq.randomize() with {num_trans inside{[1:10]};};
-      //amb_inst.agent_inst.set_report_verbosity_level( UVM_MEDIUM );
+        secuencia = trans_sequence::type_id::create("secuencia");
+        secuencia.randomize() ;
     endfunction
 
     virtual task run_phase(uvm_phase phase);
         phase.raise_objection(this);
         for (int i=0; i<16 ; i++ ) begin
             automatic int a=i;
-      seq.start(ambiente_test.agente_ambiente.agente_sequencer[a]);
+      secuencia.start(ambiente_test.agente_ambiente.agente_sequencer[a]);
     end
       phase.drop_objection(this);
   endtask    

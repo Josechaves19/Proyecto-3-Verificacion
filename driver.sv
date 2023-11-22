@@ -2,7 +2,7 @@
 //`include "Fifo_ema.sv" //creo que mas bien debería agregar las acciones de
 //la fifo directamente
 
-class driver extends uvm_driver #(item);
+class driver extends uvm_driver #(trans_bushandler);
    `uvm_component_utils(driver)
     uvm_analysis_port #(trans_bushandler) port_driver; 
    int id_drvr; // terminal
@@ -18,7 +18,7 @@ class driver extends uvm_driver #(item);
 virtual function void build_phase(uvm_phase phase);
 super.build_phase(phase);
 port_driver=new("analysis_port", this); 
-if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","bus_mesh_if",vif)) 
+if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif)) 
             `uvm_fatal("Interfaz virtual", "No se pudo conectar vif")
     endfunction
 
@@ -36,6 +36,7 @@ if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","bus_mesh_if",vif))
         forever begin
           
           trans_bushandler trans;//items del sequencer i guess
+          trans_bushandler trans_scoreboard; 
           seq_item_port.get_next_item(trans);
           trans_scoreboard=trans_bushandler::type_id::create("trans_scoreboard"); 
           trans_scoreboard.copy(trans);

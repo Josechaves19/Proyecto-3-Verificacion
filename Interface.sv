@@ -9,12 +9,4 @@ interface bus_mesh_if #(parameter ROWS = 4, parameter COLUMNS =4, parameter pkg_
     logic pndng_i_in[ROWS*2+COLUMNS*2];
     logic reset;
 
-    clocking cb @(posedge clk);
-        input pndng;
-        input data_out;
-        input popin;
-        output pop;
-        output data_out_i_in;
-        output pndng_i_in;
-    endclocking
 endinterface

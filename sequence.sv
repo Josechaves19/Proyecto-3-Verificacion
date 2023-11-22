@@ -11,6 +11,7 @@ class trans_sequence extends uvm_sequence;
     virtual task body(); 
         
         for (int i = 0 ; i <num ; i++) begin
+                trans_bushandler trans;
                 start_item(trans); 
                 trans.randomize();
                 ID_pkg=trans.dispositivo_rx;

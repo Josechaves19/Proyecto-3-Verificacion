@@ -6,8 +6,8 @@ class monitor extends uvm_monitor;
    int id_mntr;
    int count=0;
    virtual bus_mesh_if  vif; //revisar esto
-   uvm_analysis_port #(item) mntr_analysis_port; // NO SE SI UVM TIENE UNO DEFINIDO YA
-
+   uvm_analysis_port #(trans_bushandler) mntr_analysis_port; // NO SE SI UVM TIENE UNO DEFINIDO YA
+   trans_bushandler trans;  
    function new(string name = "monitor", uvm_component parent = null);
       super.new(name, parent);
    endfunction
@@ -19,16 +19,17 @@ class monitor extends uvm_monitor;
      mntr_analysis_port = new("mntr_analysis_port",this);
    endfunction
    virtual task run_phase(uvm_phase phase);
+      
       super.run_phase(phase);
+      
       vif.pop[id_mntr]=0;
       phase.raise_objection(this);
       begin
-        `uvm_warning("Monitor inicializado"), get_type_name())
         forever begin
-            item trans= item::type_id::create("trans");
+            trans= trans_bushandler::type_id::create("trans");
             vif.pop[id_mntr]=0;
             if (vif.pndng[id_mntr]==1) begin
-                  trans.out = vif.data_out[id_mntr];
+                  trans.pkg = vif.data_out[id_mntr];
                   $display("El monitor %0d recibe el mensaje: %b en modo [%d] ", id_mntr, vif.data_out[id_mntr], vif.data_out[id_mntr][pkg_size-17]);
                   vif.pop[id_mntr]=1;
             end
