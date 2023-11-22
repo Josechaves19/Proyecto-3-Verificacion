@@ -1,4 +1,4 @@
-class trans_bushandler #(parameter pkg_size  = 40);
+/*class trans_bushandler #(parameter pkg_size  = 40);
   rand int retardo; // tiempo de retardo en ciclos de reloj que se debe esperar antes de ejecutar la transacción
 rand bit[pkg_size-26:0] dato; // este es el dato de la transacción 
 rand bit [3:0] target_fila;
@@ -142,7 +142,7 @@ function void calc_latencia();
   this.latencia=this.tiempo_recibido-this.tiempo_envio; 
 endfunction
 
-endclass
+endclass */
 
 /*
 class trans_gen_agent; //Transacción del generador al agente
