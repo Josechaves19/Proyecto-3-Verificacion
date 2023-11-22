@@ -38,6 +38,8 @@ port_driver=new("analysis_port", this);
           trans_bushandler trans;//items del sequencer i guess
           trans_bushandler trans_scoreboard; 
           seq_item_port.get_next_item(trans);
+             
+          
           `uvm_info("Driver", $sformatf("Transaccion recibida"), UVM_LOW)
 
           trans_scoreboard=trans_bushandler::type_id::create("trans_scoreboard"); 
@@ -53,7 +55,7 @@ port_driver=new("analysis_port", this);
             wait (vif.popin[id_drvr]);
             vif.pndng_i_in[id_drvr] = 0;
             
-           `uvm_info("Driver", $sformatf("Envia Transaccion %0b", trans.pkg), UVM_LOW) 
+           `uvm_info("Driver", $sformatf("[%0d] Envia Transaccion %40b hacia %0d",$time, trans.pkg, trans.dispositivo_rx), UVM_LOW) 
             seq_item_port.item_done();
         end
             //`uvm_info("DRV", $sformatf("Transaccion %s", item, print_transaccion()), UVM_HIGH);

@@ -16,12 +16,13 @@ class monitor extends uvm_monitor;
      super.build_phase(phase);
      if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif))
      `uvm_fatal("Monitor","No pudo conectarse a vif")
+    
      port_monitor = new("mntr_analysis_port",this);
    endfunction
    virtual task run_phase(uvm_phase phase);
-      
+          
       super.run_phase(phase);
-      
+      `uvm_info("Monitor", $sformatf("Inicializando Monitor"), UVM_LOW)
       vif.pop[id_mntr]=0;
       phase.raise_objection(this);
       begin
@@ -30,14 +31,10 @@ class monitor extends uvm_monitor;
             vif.pop[id_mntr]=0;
             if (vif.pndng[id_mntr]==1) begin
                   trans.pkg = vif.data_out[id_mntr];
-                  $display("El monitor %0d recibe el mensaje: %b en modo [%d] ", id_mntr, vif.data_out[id_mntr], vif.data_out[id_mntr][pkg_size-17]);
+                  `uvm_info("Monitor", $sformatf("%0d Recibe Transaccion %40b", id_mntr,  trans.pkg[trans.pkg_size-9:trans.pkg_size-40]), UVM_LOW) 
                   vif.pop[id_mntr]=1;
             end
             @(posedge vif.clk);
-            if (count > 150) begin
-                break;
-            end
-            count++;
             @(posedge vif.clk);
             port_monitor.write(trans);
         end
