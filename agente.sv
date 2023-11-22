@@ -1,8 +1,5 @@
 class agente extends uvm_agent;
     `uvm_comonent_utils(agent); //Lo meto en la fabrica
-    function new(string name = "agent", uvm_component parent=null); // Builder
-		super.new(name,parent);
-	endfunction
     parameter int ROWS=4;
     parameter int COLUMNS=4
     parameter int pkg_size=40;
@@ -12,7 +9,7 @@ class agente extends uvm_agent;
     trans_bushandler_sequencer agente_sequencer[15:0]; //Creo los monitores drivers y secuenciadores
 
     `uvm_component_utils(agente) //Registro en la fabrica
-    function new (string name, uvm_component parent);
+    function new (string name ="agente", uvm_component parent=null);
        super.new(name, parent);
     endfunction //Constructor
 
