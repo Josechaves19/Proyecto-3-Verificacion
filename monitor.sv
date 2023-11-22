@@ -6,7 +6,7 @@ class monitor extends uvm_monitor;
    int id_mntr;
    int count=0;
    virtual bus_mesh_if  vif; //revisar esto
-   uvm_analysis_port #(trans_bushandler) mntr_analysis_port; // NO SE SI UVM TIENE UNO DEFINIDO YA
+   uvm_analysis_port #(trans_bushandler) port_monitor; // Este puerto va hacia el scoreboard
    trans_bushandler trans;  
    function new(string name = "monitor", uvm_component parent = null);
       super.new(name, parent);
@@ -16,7 +16,7 @@ class monitor extends uvm_monitor;
      super.build_phase(phase);
      if (!uvm_config_db #(virtual bus_mesh_if)::get(this,"","vif",vif))
      `uvm_fatal("Monitor","No pudo conectarse a vif")
-     mntr_analysis_port = new("mntr_analysis_port",this);
+     port_monitor = new("mntr_analysis_port",this);
    endfunction
    virtual task run_phase(uvm_phase phase);
       
@@ -39,7 +39,7 @@ class monitor extends uvm_monitor;
             end
             count++;
             @(posedge vif.clk);
-            mntr_analysis_port.write(trans);
+            port_monitor.write(trans);
         end
      end
    endtask

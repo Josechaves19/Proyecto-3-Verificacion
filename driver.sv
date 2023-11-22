@@ -1,10 +1,9 @@
-`include "uvm_macros.svh"
-//`include "Fifo_ema.sv" //creo que mas bien debería agregar las acciones de
+`include "uvm_macros.svh"//`include "Fifo_ema.sv" //creo que mas bien debería agregar las acciones de
 //la fifo directamente
 
 class driver extends uvm_driver #(trans_bushandler);
    `uvm_component_utils(driver)
-    uvm_analysis_port #(trans_bushandler) port_driver; 
+    uvm_analysis_port #(trans_bushandler) port_driver;//puerto de export 
    int id_drvr; // terminal
    bit[3:0] src;
    bit [3:0] id;
