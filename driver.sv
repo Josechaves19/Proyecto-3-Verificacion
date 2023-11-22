@@ -19,7 +19,7 @@ virtual function void build_phase(uvm_phase phase);
 super.build_phase(phase);
 port_driver=new("analysis_port", this); 
         if(!uvm_config_db#(virtual bus_mesh_if)::get(this,"","vif",vif))
-            `uvm_fatal("Test","Could not get vif")
+            `uvm_fatal("Driver","No se pudo obtener vif")
             uvm_config_db#(virtual bus_mesh_if)::set(this,"amb_inst.agent.*","vif",vif);
     endfunction
 
