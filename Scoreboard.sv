@@ -25,8 +25,8 @@ class scoreboard extends `uvm_scoreboard;
     //******************  URGE LO SIGUIENTE CUIDADO ****************************
     /// VER QUE DEMONIOS SON MAPEO RUTA, son terminal fila, columna y un dato
     //de pkg-9 a 0, no lo necsito para e task run///
-	mapeo_ruta#(.pkg_size(pkg_size)) trans_mapeo;
-    mapeo_ruta_mbx scoreboard_checker_mbx;
+	trans_bushandler#(.pkg_size(pkg_size)) trans_mapeo;
+    trans_bushandler_mbx scoreboard_checker_mbx;
 //datos que vienen del checker para completar la transaccion//esta vaina no la
 //ocupo ya que no vamos a hacer reporte
 //    trans_bushandler#(.pkg_size(pkg_size)) transaccion_checker_sb_item;

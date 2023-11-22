@@ -15,7 +15,17 @@ class trans_bushandler #(parameter ROWS =4, parameter COLUMNS = 4, parameter pkg
     int drvrs=16;
     reg [pkg_size-1:0] pkg;
     int latencia;
-    
+    //Necesidades de trans_mapeo.
+   int terminal_columna;
+ int terminal_fila;
+  bit [pkg_size-9:0] dato;
+ function print_transaccion_mapeo();
+   $display("trmnl_col: %g", this.terminal_columna);
+   $display("trmnl_fil: %g", this.terminal_fila);
+   $display("pkg sin nxt jump: %b",this.dato[pkg_size-9:0]);
+endfunction 
+   //
+
     function update_pkg;
         this.nxt_jump = 8'b00000000;
         this.pkg = {this.nxt_jump, this.target_fila, this.target_columna, this.modo, this.dispositivo_tx, this.dispositivo_rx, this.dato};
