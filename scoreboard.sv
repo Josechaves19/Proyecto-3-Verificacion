@@ -36,12 +36,13 @@ class scoreboard extends `uvm_scoreboard;
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
-  `uvm_analysis_imp #(item,scoreboard) m_analysis_imp;
+  uvm_analysis_imp #(trans_bushandler,scoreboard) trans_driver_export;
+ 
 
   function new(string name = "scoreboard", `uvm_component parent = null);
     super.new(name,parent);
   // BUILD PHASE
-    m_analysis_imp = new("m_analysis_imp",this);
+    trans_driver_export = new("trans_driver_export",this);
   endfunction
   
   // Empieza la fase de corrida/
@@ -57,7 +58,7 @@ class scoreboard extends `uvm_scoreboard;
     begin:  tiempo_scoreboard
         forever begin
             #1
-        if ($time>101) begin //ver que numero poner en vez de 100
+        if ($time>10000) begin //ver que numero poner en vez de 100
             disable tiempo_scoreboard;
         end    
     while(agente_scoreboard_mbx.num()>0) begin
