@@ -22,13 +22,15 @@ class scoreboard extends `uvm_scoreboard;
  //////////////// Averiguar como recibir los siguientes mailboxs///////////
  	trans_bushandler_mbx agente_scoreboard_mbx;// aqui viene el pkg con src,target_ fila, target_columna, mode
 	trans_bushandler #(.pkg_size(pkg_size)) transaccion_entrante_item;
+    //******************  URGE LO SIGUIENTE CUIDADO ****************************
     /// VER QUE DEMONIOS SON MAPEO RUTA, son terminal fila, columna y un dato
     //de pkg-9 a 0, no lo necsito para e task run///
 	mapeo_ruta#(.pkg_size(pkg_size)) trans_mapeo;
     mapeo_ruta_mbx scoreboard_checker_mbx;
-//datos que vienen del checker para completar la transaccion
-    trans_bushandler#(.pkg_size(pkg_size)) transaccion_checker_sb_item;
-    trans_bushandler_mbx transaccion_checker_sb_mbx;
+//datos que vienen del checker para completar la transaccion//esta vaina no la
+//ocupo ya que no vamos a hacer reporte
+//    trans_bushandler#(.pkg_size(pkg_size)) transaccion_checker_sb_item;
+  //  trans_bushandler_mbx transaccion_checker_sb_mbx;
 //definiendo transaccion_reducida
     trans_bushandler#(.pkg_size(pkg_size)) transaccion_reducida_agente;
     trans_bushandler#(.pkg_size(pkg_size)) transaccion_reducida_checker;
@@ -39,8 +41,8 @@ class scoreboard extends `uvm_scoreboard;
   `uvm_analysis_imp_decl(_port_driver)
    `uvm_analysis_imp_decl(_port_monitor)
 
-  uvm_analysis_imp_port_monitor#(trans_bushandler) port_monitor_sb;
- uvm_analysis_imp_port_driver#(trans_bushandler) port_driver_sb; 
+  uvm_analysis_imp_port_monitor#(trans_bushandler) port_monitor_sb;//monitor_checker_mbx
+ uvm_analysis_imp_port_driver#(trans_bushandler) port_driver_sb; //transaccion_entrante_item
   
  //*****************AHORA LA GRAN INCOGNITA ES. DONDE DEMONIOS USO ESTOS PUERTOS QUE AHORA SON******************
  //***************************************LOS ANTIGUOS MBX*******************************************************
@@ -53,7 +55,7 @@ class scoreboard extends `uvm_scoreboard;
   // Empieza la fase de corrida/
    task run_phase(`uvm_phase phase);
 
-    transaccion_entrante_item = trans_bushandler::type_id::create("transaccion_entrante_item");
+    port_driver_sb = trans_bushandler::type_id::create("port_driver_sb");
     transaccion_reducida_agente = trans_bushandler::type_id::create("transaccion_reducida_agente");
     transaccion_reducida_checker = trans_bushandler::type_id::create("transaccion_reducida_checker");
     transaccion_completa = trans_bushandler::type_id::create("transaccion_completa");
@@ -465,9 +467,9 @@ endtask
   forever begin: Tiempo_checker
   #1
     for (int i=0; i<16; i=i+1) begin
-    while(monitor_checker_mbx[i].num()!=0) begin
+    while(port_monitor_sb[i].num()!=0) begin
           trans_monitor=new();
-          monitor_checker_mbx[i].get(trans_monitor);
+              port_monitor_sb[i].get(trans_monitor);
           trans_monitor.tiempo_recibido=$time;
 
         entrante_row_columna(trans_monitor.pkg[this.pkg_size-22:this.pkg_size-25]);
@@ -640,6 +642,8 @@ for (int i = 0; i < lista_unicos.size(); i++) begin
       trans_sb.tiempo_recibido=monitor_lista[j].tiempo_recibido; 
       d_enviado.hextoa(this.trans_sb.pkg); 
       $system($sformatf("echo %0s >> checker.csv", d_enviado)); 
+      
+      ////***************************AHORA QUE HAGO CON LA ANTIGUA COSA QUE COMPARABA**********************************////
       checker_scoreboard_mbx.put(trans_sb);
     end
       
