@@ -30,6 +30,7 @@ module tb;
              uvm_config_db#(int)::set(null, "*","ROWS", ROWS);
              uvm_config_db#(int)::set(null, "*","fifo_size", fifo_depth);
             uvm_config_db#(int)::set(null, "*","pckg_sz", pkg_size);
-            run_test("test_1");
+            run_test("test_5");
+            
         end
     endmodule
