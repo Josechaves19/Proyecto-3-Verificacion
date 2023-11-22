@@ -35,14 +35,19 @@ class scoreboard extends `uvm_scoreboard;
     trans_bushandler#(.pkg_size(pkg_size)) transaccion_completa;
 /////////////////////////////////////////////////////////////////////////////////////////
 
+///////DECLARANDO LOS PORTS QUE VIENEN DEL DRIVER Y MONITOR
+  `uvm_analysis_imp_decl(_port_driver)
+   `uvm_analysis_imp_decl(_port_monitor)
 
-  uvm_analysis_imp #(trans_bushandler,scoreboard) trans_driver_export;
+  uvm_analysis_imp_port_monitor#(trans_bushandler) monitor_sb_port;
+ uvm_analysis_imp_port_driver#(trans_bushandler) driver_sb_port; 
   
-
+ //*****************AHORA LA GRAN INCOGNITA ES. DONDE DEMONIOS USO ESTOS PUERTOS QUE AHORA SON******************
+ //***************************************LOS ANTIGUOS MBX*******************************************************
   function new(string name = "scoreboard", `uvm_component parent = null);
     super.new(name,parent);
   // BUILD PHASE
-    trans_driver_export = new("trans_driver_export",this);
+  //
   endfunction
   
   // Empieza la fase de corrida/
