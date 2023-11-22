@@ -39,8 +39,8 @@ class scoreboard extends `uvm_scoreboard;
   `uvm_analysis_imp_decl(_port_driver)
    `uvm_analysis_imp_decl(_port_monitor)
 
-  uvm_analysis_imp_port_monitor#(trans_bushandler) monitor_sb_port;
- uvm_analysis_imp_port_driver#(trans_bushandler) driver_sb_port; 
+  uvm_analysis_imp_port_monitor#(trans_bushandler) port_monitor_sb;
+ uvm_analysis_imp_port_driver#(trans_bushandler) port_driver_sb; 
   
  //*****************AHORA LA GRAN INCOGNITA ES. DONDE DEMONIOS USO ESTOS PUERTOS QUE AHORA SON******************
  //***************************************LOS ANTIGUOS MBX*******************************************************
